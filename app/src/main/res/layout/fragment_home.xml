@@ -4,19 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-
+    android:background="@color/black"
     tools:context=".ui.home.HomeFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewSearchViewHome"
+
+        android:layout_width="132dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+
+        android:layout_marginTop="40dp"
+
+        android:background="@drawable/round_search_field"
+
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_view"
+        app:searchIcon="@drawable/ic_round_search_24" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:layout_width="107dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="230dp"
+        android:layout_marginTop="96dp"
+        android:background="@color/black_500"
         android:contentDescription="@string/image_slider"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
