@@ -8,21 +8,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="image_slider">Image Slider</string>
     <string name="search_view">search</string>
-
     <string name="most_popular">Most Popular</string>
     <string name="recommendations">Recommendations</string>
     <string name="poster_of_a_trending_movie">Poster of a trending movie</string>
     <string name="title_poster">Title Poster</string>
     <string name="description_trending_poster">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-
-
     <string name="cancel_button">Cancel</string>
     <string name="movie_poster">movie poster</string>
     <string name="movie_name">Movie Name</string>
     <string name="movie_description">This is ent of the de</string>
     <string name="platform_logo">platform Logo</string>
-
-
     <string name="movie_image">movie image</string>
     <string name="title_movie">title movie</string>
 
