@@ -11,6 +11,7 @@
     <color name="black_500">#302929 </color>
     <color name="red">#F24E1E</color>
     <color name="purple_200">#00A8E1</color>
+    <color name="purple_300">#8000A8E1</color>
     <color name="purple_100">#4D00A8E1</color>
 
 </resources>
