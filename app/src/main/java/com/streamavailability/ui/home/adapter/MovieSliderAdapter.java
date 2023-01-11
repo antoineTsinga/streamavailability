@@ -18,8 +18,6 @@ import java.util.List;
 
 public class MovieSliderAdapter extends PagerAdapter {
 
-
-
     private List<Movie> movieList;
     private Context context;
 
