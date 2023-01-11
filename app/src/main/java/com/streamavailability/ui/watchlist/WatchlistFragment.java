@@ -30,8 +30,7 @@ public class WatchlistFragment extends Fragment {
         binding = FragmentWatchlistBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textWatchlist;
-        watchlistViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
