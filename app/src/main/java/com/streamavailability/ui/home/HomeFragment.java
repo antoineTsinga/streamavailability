@@ -1,6 +1,8 @@
 package com.streamavailability.ui.home;
 
 
+
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -21,8 +23,11 @@ import com.streamavailability.ui.home.data.Movie;
 import com.streamavailability.ui.home.data.MovieResponse;
 import com.streamavailability.ui.home.service.MovieService;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +35,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
+import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
 
@@ -53,20 +63,6 @@ public class HomeFragment extends Fragment {
 
 
     private ViewPager viewPager;
-    private int currentPage = 0;
-    private final int delayTime = 5000; // delay time between page changes, in milliseconds
-    private final int pageCount = 20; // number of pages in the ViewPager
-    private Handler handler = new Handler();
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if (currentPage == pageCount) {
-                currentPage = 0;
-            }
-            viewPager.setCurrentItem(currentPage++, true);
-            handler.postDelayed(runnable, delayTime);
-        }
-    };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -74,7 +70,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         viewPager = binding.viewPager;
-        handler.postDelayed(runnable, delayTime);
+
         String apiKey = "895d65ebbdd5b9379ad195b07e0ed023";
         movieSliderList = new ArrayList<>();
         // you can use the movieList data from API here.
@@ -112,9 +108,24 @@ public class HomeFragment extends Fragment {
 
 
         movieSliderAdapter = new MovieSliderAdapter(movieSliderList, getContext());
-        binding.viewPager.setAdapter(movieSliderAdapter);
+        viewPager.setAdapter(movieSliderAdapter);
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
+        try {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            Interpolator sInterpolator = null;
+            FixedSpeedScroller scroller = new FixedSpeedScroller(viewPager.getContext(), new LinearInterpolator());
+            // scroller.setFixedDuration(5000);
+            mScroller.set(viewPager, scroller);
+        } catch (NoSuchFieldException e) {
+        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException e) {
+        }
 
 
+        //pageSwitcher(5);
+        timer();
         //bind recycler view
         movieMostPopularListRecyclerView = binding.sectionMostPopular;
         movieRecommendationsRecyclerView = binding.sectionRecommendation;
@@ -195,7 +206,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        handler.postDelayed(runnable, delayTime);
+
     }
 
     private void fetchData( Call<MovieResponse> call, SectionMovieAdapter adapter) {
@@ -221,6 +232,64 @@ public class HomeFragment extends Fragment {
                 // handle failure
             }
         });
+    }
+
+
+
+    Timer timer;
+    int page = 1;
+
+    public void pageSwitcher(int seconds) {
+        timer = new Timer(); // At this line a new Thread will be created
+        timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000); // delay
+        // in
+        // milliseconds
+    }
+
+    // this is an inner class...
+
+
+    class RemindTask extends TimerTask {
+
+        @Override
+        public void run() {
+
+            // As the TimerTask run on a seprate thread from UI thread we have
+            // to call runOnUiThread to do work on UI thread.
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+
+                    if (page > 4) { // In my case the number of pages are 5
+                        timer.cancel();
+                        // Showing a toast for just testing purpose
+                        Toast.makeText(getContext(), "Timer stoped",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        binding.viewPager.setCurrentItem(page++);
+                    }
+                }
+            });
+
+        }
+    }
+
+
+    private void timer() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (page == 20 - 1) {
+                            page = 0;
+                        }
+                        viewPager.setCurrentItem(page++, true);
+                    }
+                });
+            }
+        }, 500, 10000);
     }
 
 }
