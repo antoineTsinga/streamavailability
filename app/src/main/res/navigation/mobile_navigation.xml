@@ -29,4 +29,10 @@
         android:label="@string/title_account"
         tools:layout="@layout/fragment_account" />
 
+    <fragment
+        android:id="@+id/navigation_movie_details"
+        android:name="com.streamavailability.ui.moviedetails.MovieDetails"
+        android:label="Movie details"
+        tools:layout="@layout/fragment_movie_details" />
+
 </navigation>

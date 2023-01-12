@@ -1,6 +1,8 @@
 package com.streamavailability.Adapter.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,13 +10,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.streamavailability.R;
 import com.streamavailability.Model.Movie;
+import com.streamavailability.ui.moviedetails.MovieDetails;
 
 import java.util.List;
 
@@ -77,18 +83,23 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
 */
             cardView = (ConstraintLayout) itemView.findViewById(R.id.card_movie_in_home);
 
-/*
+
             cardView.setOnClickListener(view -> {
-                String movieId = movieList.get(getAdapterPosition()).getId();
+                Movie movie = movieList.get(getAdapterPosition());
 
-                Intent movieDetailsIntent = new Intent(itemView.getContext(), MovieDetails.class);
-                movieDetailsIntent.setAction(Intent.ACTION_SEND);
-                movieDetailsIntent.putExtra("movieId",movieId);
-                movieDetailsIntent.putExtra("posterId", (Integer) poster.getTag());
-                movieDetailsIntent.setType("text/plain");
-                itemView.getContext().startActivity(movieDetailsIntent);
+                MovieDetails fragment = new MovieDetails();
 
-            });*/
+                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("movie", movie);
+                fragment.setArguments(bundle);
+
+
+            });
         }
     }
 
