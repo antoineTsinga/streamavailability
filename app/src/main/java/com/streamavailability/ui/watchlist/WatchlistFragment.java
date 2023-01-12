@@ -55,7 +55,7 @@ public class WatchlistFragment extends Fragment {
             public void onBindViewHolder(MovieViewHolder holder, int position, MovieWatchlist movie) {
                 holder.nameView.setText(movie.getTitle());
                 holder.descriptionView.setText(movie.getDescription());
-                holder.typePlatformView.setText(movie.getPlatforms().toString());
+               // holder.typePlatformView.setText(movie.getPlatforms().toString());
                 Glide.with(holder.imageView.getContext()).load(movie.getImage())
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(holder.imageView);

@@ -12,7 +12,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
     public TextView nameView;
     public ImageView imageView;
     public TextView descriptionView;
-    public TextView typePlatformView;
+    public ImageView typePlatformView;
 
     public MovieViewHolder(View itemView) {
         super(itemView);

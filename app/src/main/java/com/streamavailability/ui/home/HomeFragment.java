@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
 
     private ViewPager viewPager;
     private int currentPage = 0;
-    private final int delayTime = 5000; // delay time between page changes, in milliseconds
+    private final int delayTime = 15000; // delay time between page changes, in milliseconds
     private final int pageCount = 20; // number of pages in the ViewPager
     private Handler handler = new Handler();
     private Runnable runnable = new Runnable() {
