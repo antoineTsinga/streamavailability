@@ -5,14 +5,17 @@
     android:id="@+id/card_movie_in_home"
     android:layout_width="135dp"
     android:layout_height="wrap_content"
+    android:layout_margin="4dp"
     android:background="@color/black_500">
 
+
+
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/card_home_poster"
         android:layout_width="135dp"
-        android:layout_height="wrap_content"
+        android:layout_height="147dp"
         android:contentDescription="@string/movie_image"
-        android:scaleType="fitStart"
+        android:scaleType="centerCrop"
         android:src="@drawable/default_image_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,35 +25,69 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/title_movie"
+        android:id="@+id/card_home_title_movie"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
         android:textSize="11sp"
         android:textColor="@color/white"
         android:maxLines="3"
         android:text="@string/title_movie"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/card_home_poster" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
 
-        app:layout_constraintTop_toBottomOf="@+id/title_movie"
+    <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_margin="4dp"
+        android:textSize="11sp"
+        android:textColor="@color/purple_200"
+        android:maxLines="1"
+        android:text="@string/movie_type"
+        app:layout_constraintTop_toBottomOf="@+id/card_home_title_movie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:orientation="horizontal"
+        android:layout_margin="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+
+
         >
-        <TextView
-            android:id="@+id/type"
+        <ImageView
+            android:id="@+id/card_home_platform3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="11dp"
             android:layout_margin="4dp"
-            android:textSize="11sp"
-            android:textColor="@color/purple_200"
-            android:maxLines="3"
-            android:text="Movie" />
+            android:contentDescription="@string/platform_logo"/>
+
+        <ImageView
+            android:id="@+id/card_home_platform2"
+            android:layout_width="wrap_content"
+            android:layout_height="11dp"
+            android:layout_margin="4dp"
+            android:contentDescription="@string/platform_logo" />
+
+        <ImageView
+            android:id="@+id/card_home_platform1"
+            android:layout_width="wrap_content"
+            android:layout_height="11dp"
+            android:layout_margin="4dp"
+            android:contentDescription="@string/platform_logo"/>
 
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
