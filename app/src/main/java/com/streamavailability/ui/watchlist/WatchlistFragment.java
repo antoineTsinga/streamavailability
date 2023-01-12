@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
@@ -25,12 +27,11 @@ import com.streamavailability.R;
 import com.streamavailability.databinding.FragmentWatchlistBinding;
 
 
-
 public class WatchlistFragment extends Fragment {
 
     private FragmentWatchlistBinding binding;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference movieRef = db.collection("movies");
+    private CollectionReference movieRef = db.collection("movies_watchlist");
     private Query query = movieRef;
     private FirestoreRecyclerOptions<MovieWatchlist> options;
     private FirestoreRecyclerAdapter<MovieWatchlist, MovieViewHolder> adapter;
@@ -43,6 +44,8 @@ public class WatchlistFragment extends Fragment {
 
         binding = FragmentWatchlistBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        recyclerView = binding.recyclerMovieWatchlist;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         options = new FirestoreRecyclerOptions.Builder<MovieWatchlist>()
                 .setQuery(query, MovieWatchlist.class)
@@ -50,10 +53,13 @@ public class WatchlistFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<MovieWatchlist, MovieViewHolder>(options) {
             @Override
             public void onBindViewHolder(MovieViewHolder holder, int position, MovieWatchlist movie) {
-                holder.nameView.setText(movie.getMovie_name());
-                holder.descriptionView.setText(movie.getMovie_description());
-                holder.typePlatformView.setText(movie.getMovie_type_platform().toString());
-                //TODO: Load the Image to the ImageView using Glide or Picasso
+                holder.nameView.setText(movie.getTitle());
+                holder.descriptionView.setText(movie.getDescription());
+                holder.typePlatformView.setText(movie.getPlatforms().toString());
+                Glide.with(holder.imageView.getContext()).load(movie.getImage())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imageView);
+
             }
 
             @Override
@@ -64,9 +70,9 @@ public class WatchlistFragment extends Fragment {
                 return new MovieViewHolder(view);
             }
         };
-        recyclerView = root.findViewById(R.id.recycler_movie_watchlist);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+                recyclerView.setAdapter(adapter);
+
+
 
         return root;
     }

@@ -4,49 +4,49 @@ import java.util.List;
 
 public class MovieWatchlist {
 
-    private String movie_name;
-    private String movie_image;
-    private String movie_description;
-    private List<String> movie_type_platform;
+    private String title;
+    private String image;
+    private String description;
+    private List<String> platforms;
 
     public MovieWatchlist() {}
 
-    public MovieWatchlist(String movie_name, String movie_image, String movie_description, List<String> movie_type_platform) {
-        this.movie_name = movie_name;
-        this.movie_image = movie_image;
-        this.movie_description = movie_description;
-        this.movie_type_platform = movie_type_platform;
+    public MovieWatchlist(String title, String image, String description, List<String> platforms) {
+        this.title = title;
+        this.image = image;
+        this.description = description;
+        this.platforms = platforms;
     }
 
-    public String getMovie_name() {
-        return movie_name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMovie_name(String movie_name) {
-        this.movie_name = movie_name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getMovie_image() {
-        return movie_image;
+    public String getImage() {
+        return image;
     }
 
-    public void setMovie_image(String movie_image) {
-        this.movie_image = movie_image;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getMovie_description() {
-        return movie_description;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMovie_description(String movie_description) {
-        this.movie_description = movie_description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<String> getMovie_type_platform() {
-        return movie_type_platform;
+    public List<String> getPlatforms() {
+        return platforms;
     }
 
-    public void setMovie_type_platform(List<String> movie_type_platform) {
-        this.movie_type_platform = movie_type_platform;
+    public void setPlatforms(List<String> platforms) {
+        this.platforms = platforms;
     }
 }
