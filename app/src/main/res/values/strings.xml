@@ -21,5 +21,6 @@
     <string name="movie_image">movie image</string>
     <string name="title_movie">title movie</string>
     <string name="movie_type">Movie</string>
+    <string name="genre">Genre</string>
 
 </resources>
