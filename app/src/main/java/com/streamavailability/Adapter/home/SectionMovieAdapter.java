@@ -1,7 +1,6 @@
-package com.streamavailability.ui.home.adapter;
+package com.streamavailability.Adapter.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.streamavailability.R;
-import com.streamavailability.ui.home.data.Movie;
-import com.streamavailability.ui.moviedetails.MovieDetails;
+import com.streamavailability.Model.Movie;
 
 import java.util.List;
 
@@ -80,7 +77,7 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
 */
             cardView = (ConstraintLayout) itemView.findViewById(R.id.card_movie_in_home);
 
-
+/*
             cardView.setOnClickListener(view -> {
                 String movieId = movieList.get(getAdapterPosition()).getId();
 
@@ -91,7 +88,7 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
                 movieDetailsIntent.setType("text/plain");
                 itemView.getContext().startActivity(movieDetailsIntent);
 
-            });
+            });*/
         }
     }
 

@@ -1,4 +1,4 @@
-package com.streamavailability.ui.home.adapter;
+package com.streamavailability.Adapter.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
 import com.streamavailability.R;
-import com.streamavailability.ui.home.data.Movie;
+import com.streamavailability.Model.Movie;
 
 import java.util.List;
 

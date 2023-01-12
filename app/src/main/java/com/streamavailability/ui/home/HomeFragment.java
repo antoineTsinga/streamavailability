@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.streamavailability.databinding.FragmentHomeBinding;
-import com.streamavailability.ui.home.adapter.MovieSliderAdapter;
-import com.streamavailability.ui.home.adapter.SectionMovieAdapter;
-import com.streamavailability.ui.home.data.Movie;
-import com.streamavailability.ui.home.data.MovieResponse;
-import com.streamavailability.ui.home.service.MovieService;
+import com.streamavailability.Adapter.home.MovieSliderAdapter;
+import com.streamavailability.Adapter.home.SectionMovieAdapter;
+import com.streamavailability.Model.Movie;
+import com.streamavailability.Model.MovieResponse;
+import com.streamavailability.service.MovieService;
+import com.streamavailability.ui.util.DepthPageTransformer;
+import com.streamavailability.ui.util.FixedSpeedScroller;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -35,9 +37,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Toast;

@@ -1,7 +1,7 @@
-package com.streamavailability.ui.home.service;
+package com.streamavailability.service;
 
-import com.streamavailability.ui.home.data.Movie;
-import com.streamavailability.ui.home.data.MovieResponse;
+import com.streamavailability.Model.Movie;
+import com.streamavailability.Model.MovieResponse;
 
 import java.util.List;
 

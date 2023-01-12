@@ -1,4 +1,6 @@
-package com.streamavailability.ui.home.data;
+package com.streamavailability.Model;
+
+import com.streamavailability.Model.Movie;
 
 import java.util.List;
 

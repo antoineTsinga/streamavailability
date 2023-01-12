@@ -1,4 +1,4 @@
-package com.streamavailability.ui.home;
+package com.streamavailability.ui.util;
 
 import android.view.View;
 

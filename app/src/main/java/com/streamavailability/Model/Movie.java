@@ -1,4 +1,4 @@
-package com.streamavailability.ui.home.data;
+package com.streamavailability.Model;
 
 import java.util.List;
 

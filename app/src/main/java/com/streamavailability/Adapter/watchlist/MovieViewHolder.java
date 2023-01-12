@@ -1,4 +1,4 @@
-package com.streamavailability.Adapter;
+package com.streamavailability.Adapter.watchlist;
 
 import android.view.View;
 import android.widget.ImageView;

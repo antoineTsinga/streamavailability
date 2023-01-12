@@ -21,7 +21,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.streamavailability.Adapter.MovieViewHolder;
+import com.streamavailability.Adapter.watchlist.MovieViewHolder;
 import com.streamavailability.Model.MovieWatchlist;
 import com.streamavailability.R;
 import com.streamavailability.databinding.FragmentWatchlistBinding;
