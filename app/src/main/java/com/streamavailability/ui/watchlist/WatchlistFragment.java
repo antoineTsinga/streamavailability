@@ -53,6 +53,9 @@ public class WatchlistFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<MovieWatchlist, MovieViewHolder>(options) {
             @Override
             public void onBindViewHolder(MovieViewHolder holder, int position, MovieWatchlist movie) {
+
+
+                System.out.println("----------------------------" + movie.getTitle());
                 holder.nameView.setText(movie.getTitle());
                 holder.descriptionView.setText(movie.getDescription());
                // holder.typePlatformView.setText(movie.getPlatforms().toString());

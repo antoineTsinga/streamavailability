@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +52,8 @@ public class CategoryFragment extends Fragment {
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recyclerView = binding.recyclerViewCategory;
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+       recyclerView.setLayoutManager(gridLayoutManager);
 
         options = new FirestoreRecyclerOptions.Builder<Category>()
                 .setQuery(query, Category.class)
@@ -59,7 +61,9 @@ public class CategoryFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Category, CategoryViewHolder>(options) {
             @Override
             public void onBindViewHolder(CategoryViewHolder holder, int position, Category category) {
-                holder.nameCategorView.setText(category.getName());
+
+                System.out.println("-----------------------------------"+category.getName());
+                holder.nameCategoryView.setText(category.getName());
             }
 
             @Override
@@ -71,6 +75,7 @@ public class CategoryFragment extends Fragment {
             }
         };
         recyclerView.setAdapter(adapter);
+
         return root;
     }
 

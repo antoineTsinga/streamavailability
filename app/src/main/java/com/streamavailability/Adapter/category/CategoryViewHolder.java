@@ -4,16 +4,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.streamavailability.R;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView nameCategorView;
+    public AppCompatButton nameCategoryView;
 
     public CategoryViewHolder(@NonNull View itemView) {
         super(itemView);
-        nameCategorView = itemView.findViewById(R.id.btnAny);
+        nameCategoryView = itemView.findViewById(R.id.btnAny);
     }
 }
