@@ -15,4 +15,56 @@
         <item name="android:textFontWeight" tools:targetApi="p">400</item>
         <item name="android:background">@drawable/rectangle_bg_light_blue_600_3f_radius_10</item>
     </style>
+    <style name="txtInderregular20">
+        <item name="android:textSize">20px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inder</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="txtInterregular12">
+        <item name="android:textSize">12px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="etRoundedOutline">
+        <item name="android:textSize">12px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="android:background">@drawable/rectangle_border_white_a700_radius_5</item>
+    </style>
+    <style name="txtInterregular10">
+        <item name="android:textSize">10px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="etRoundedOutline_1">
+        <item name="android:textSize">12px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="android:background">@drawable/rectangle_border_white_a700_radius_3</item>
+    </style>
+    <style name="btnSolidRounded_1">
+        <item name="android:textSize">20px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inter</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+        <item name="android:background">@drawable/rectangle_bg_light_blue_600_7f_radius_5</item>
+    </style>
+    <style name="txtInderregular15_3">
+        <item name="android:textSize">15px</item>
+        <item name="android:textColor">@color/deep_orange_600</item>
+        <item name="android:fontFamily">@font/inder</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+    <style name="txtInderregular15">
+        <item name="android:textSize">15px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/inder</item>
+        <item name="android:textFontWeight" tools:targetApi="p">400</item>
+    </style>
+
 </resources>
