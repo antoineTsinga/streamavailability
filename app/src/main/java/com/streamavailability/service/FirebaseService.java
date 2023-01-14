@@ -21,6 +21,8 @@ public class FirebaseService {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mFirestore;
 
+
+
     public FirebaseService() {
         mAuth = FirebaseAuth.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
@@ -54,6 +56,7 @@ public class FirebaseService {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             Log.d("FirebaseService", "signInWithEmail:success");
                             listener.onComplete(task);
                         } else {
@@ -79,6 +82,10 @@ public class FirebaseService {
                     }
                 });
     }
+
+
+
+
 
     private void createUserInFirestore(String userId, User user) {
         mFirestore.collection("users").document(userId).set(user)
