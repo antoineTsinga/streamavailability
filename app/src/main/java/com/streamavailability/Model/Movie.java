@@ -1,5 +1,7 @@
 package com.streamavailability.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,8 +15,14 @@ public class Movie implements Serializable {
     private String release_date;
     private Boolean adult;
     private String media_type;
-    private List<String> genre_ids;
+    private List<Genre> genres;
+    private String vote_average;
+    private String runtime ;
+    private Credits credits;
 
+
+    @SerializedName("watch/providers")
+    private WatchProvider watchProvider;
 
 
     private String name;
@@ -22,7 +30,7 @@ public class Movie implements Serializable {
     public Movie() {
     }
 
-    public Movie(String id, String title, String overview, String poster_path, String release_date, Boolean adult, String media_type, List<String> genre_ids, String name) {
+    public Movie(String id, String title, String overview, String poster_path, String release_date, Boolean adult, String media_type, List<Genre> genres, String vote_average, String runtime, Credits credits, WatchProvider watchProvider, String name) {
         this.id = id;
         this.title = title;
         this.overview = overview;
@@ -30,7 +38,12 @@ public class Movie implements Serializable {
         this.release_date = release_date;
         this.adult = adult;
         this.media_type = media_type;
-        this.genre_ids = genre_ids;
+        this.genres = genres;
+        this.vote_average = vote_average;
+        this.runtime = runtime;
+        this.credits = credits;
+        this.watchProvider = watchProvider;
+
         this.name = name;
     }
 
@@ -97,11 +110,44 @@ public class Movie implements Serializable {
         this.media_type = media_type;
     }
 
-    public List<String> getGenre_ids() {
-        return genre_ids;
+    public List<Genre> getGenres() {
+        return genres;
     }
 
-    public void setGenre_ids(List<String> genre_ids) {
-        this.genre_ids = genre_ids;
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public String getVote_average() {
+        return vote_average;
+    }
+
+    public void setVote_average(String vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
+    public Credits getCredits() {
+        return credits;
+    }
+
+    public void setCredits(Credits credits) {
+        this.credits = credits;
+    }
+
+
+    public WatchProvider getWatchProvider() {
+        return watchProvider;
+    }
+
+    public void setWatchProvider(WatchProvider watchProvider) {
+        this.watchProvider = watchProvider;
     }
 }

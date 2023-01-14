@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,7 +40,10 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
     @Override
     public void onBindViewHolder(@NonNull SectionMovieAdapter.ViewHolder holder, int position) {
         Movie movie = movieList.get(position);
+
         holder.titleMovie.setText(movie.getTitle() ==null? movie.getName(): movie.getTitle());
+
+
         // use a library such as Glide to load the image from the URL into the ImageView
         Glide.with(holder.poster.getContext()).load(movie.getPoster_path())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -87,16 +91,27 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
             cardView.setOnClickListener(view -> {
                 Movie movie = movieList.get(getAdapterPosition());
 
-                MovieDetails fragment = new MovieDetails();
 
-                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("movie", movie);
-                fragment.setArguments(bundle);
+
+/*
+                fragmentManager.beginTransaction()
+                       .setCustomAnimations(
+                                R.anim.slide_in,  // enter
+                                R.anim.fade_out,  // exit
+                                R.anim.fade_in,   // popEnter
+                                R.anim.slide_out  // popExit
+                       )
+                        .addSharedElement(poster, "details_poster")
+                        .attach(fragment)
+                        //.replace(R.id.nav_host_fragment_activity_main, fragment)
+                        .addToBackStack(null)
+                        .commit();
+*/
+
+                Intent movieIntent = new Intent(itemView.getContext(), MovieDetails.class);
+                movieIntent.putExtra("movie", movie);
+                itemView.getContext().startActivity(movieIntent);
+
 
 
             });

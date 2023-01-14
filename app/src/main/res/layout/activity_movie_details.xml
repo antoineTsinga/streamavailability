@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_marginBottom="10dp"
     android:layout_height="match_parent"
+
     android:theme="@style/Theme.StreamAvailability"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -83,7 +84,7 @@
           android:id="@+id/platforms_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:padding="20dp"
+
           android:text="Movie Provider"
           android:textColor="@color/white_500"
           app:layout_constraintTop_toBottomOf="@id/description_movie_details"
@@ -92,13 +93,145 @@
 
 
       <LinearLayout
-          android:id="@+id/platforms"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          app:layout_constraintTop_toBottomOf="@id/platforms_label"
+          android:id="@+id/rent_ct"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:orientation="vertical"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"/>
+          app:layout_constraintTop_toBottomOf="@id/platforms_label">
+        <TextView
+            android:id="@+id/rent_label"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+
+            android:text="Rent : "
+            android:textSize="12sp"
+            android:textColor="@color/white_500"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_linear_rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rent_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+          <LinearLayout
+              android:id="@+id/linear_rent"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+
+              />
+        </HorizontalScrollView>
+
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/buy_ct"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/rent_ct">
+
+        <TextView
+            android:id="@+id/buy_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy : "
+            android:textSize="12sp"
+            android:textColor="@color/white_500"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_linear_buy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buy_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+          <LinearLayout
+              android:id="@+id/linear_buy"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+
+              />
+        </HorizontalScrollView>
+
+      </LinearLayout>
+
+
+
+      <LinearLayout
+          android:id="@+id/flatrate_ct"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_margin="20dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
+
+          app:layout_constraintTop_toBottomOf="@id/buy_ct">
+
+        <TextView
+            android:id="@+id/flatrate_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flatrate :"
+            android:textSize="12sp"
+            android:textColor="@color/white_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+        <HorizontalScrollView
+            android:id="@+id/scroll_linear_flatrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/flatrate_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+          <LinearLayout
+              android:id="@+id/linear_flatrate"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+
+              />
+        </HorizontalScrollView>
+
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/details_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="20dp"
+          android:text="Movie Details"
+          android:textColor="@color/white_500"
+          app:layout_constraintTop_toBottomOf="@id/flatrate_ct"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/rating_ct"
@@ -112,7 +245,9 @@
           app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
 
-          app:layout_constraintTop_toBottomOf="@id/platforms">
+          app:layout_constraintTop_toBottomOf="@id/details_label">
+
+
 
         <TextView
             android:id="@+id/rating_label"
@@ -137,6 +272,7 @@
             app:layout_constraintStart_toEndOf="@id/rating_label"
             app:layout_constraintTop_toTopOf="parent" />
       </androidx.constraintlayout.widget.ConstraintLayout>
+
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/runtime_ct"
           android:layout_width="match_parent"
@@ -303,23 +439,16 @@
           />
 
 
-      <LinearLayout
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/casting"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/casting_label"
-          android:orientation="horizontal"
+
           app:layout_constraintEnd_toEndOf="parent"/>
 
-      <LinearLayout
-          android:id="@+id/video"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/casting"
-          android:orientation="horizontal"
-          app:layout_constraintEnd_toEndOf="parent"/>
+
 
       <EditText
           android:id="@+id/editTextTextMultiLine"
@@ -338,11 +467,15 @@
           android:gravity="start|top"
           android:inputType="textMultiLine"
 
-          app:layout_constraintBottom_toBottomOf="parent"
+
           app:layout_constraintTop_toBottomOf="@id/casting"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
           />
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
