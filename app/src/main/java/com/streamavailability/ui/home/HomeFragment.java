@@ -3,6 +3,7 @@ package com.streamavailability.ui.home;
 
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import com.streamavailability.Model.Movie;
 import com.streamavailability.Model.MovieResponse;
 import com.streamavailability.service.MovieService;
 import com.streamavailability.ui.moviedetails.MovieDetails;
+import com.streamavailability.ui.moviesresult.MoviesResult;
 import com.streamavailability.ui.util.DepthPageTransformer;
 import com.streamavailability.ui.util.FixedSpeedScroller;
 
@@ -97,6 +99,11 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         viewPager = binding.viewPager;
 
+        binding.searchViewSearchViewHome.setOnClickListener(view -> {
+
+            Intent moviesResultIntent = new Intent(getContext(), MoviesResult.class);
+            getContext().startActivity(moviesResultIntent);
+        });
 
 
         String apiKey = "895d65ebbdd5b9379ad195b07e0ed023";

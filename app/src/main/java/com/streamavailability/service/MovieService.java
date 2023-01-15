@@ -1,7 +1,11 @@
 package com.streamavailability.service;
 
+import com.streamavailability.Model.AvailableRegionResponse;
+import com.streamavailability.Model.Genre;
+import com.streamavailability.Model.GenreResponse;
 import com.streamavailability.Model.Movie;
 import com.streamavailability.Model.MovieResponse;
+import com.streamavailability.Model.ProviderResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +36,19 @@ public interface MovieService {
                                         @Query("api_key") String apiKey,
                                         @Query("append_to_response") String appendToResponse
                                         );
+
+   @GET("genre/movie/list")
+   Call<GenreResponse> getGenres(@Query("api_key") String apiKey);
+
+   @GET("watch/providers/regions")
+   Call<AvailableRegionResponse> getAvailableRegion(@Query("api_key") String apiKey);
+
+   @GET("/watch/providers/movie")
+   Call<ProviderResponse> getProviderMovie(@Query("api_key") String apiKey);
+
 }
 
-/*https://api.themoviedb.org/3/movie/558?
-api_key=895d65ebbdd5b9379ad195b07e0ed023
-&append_to_response=watch%2Fproviders,genres,credits
-* */
+
+
+
+

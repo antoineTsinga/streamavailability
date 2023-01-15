@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.moviesresult.MoviesResult">
+
+
+    <Button
+        android:id="@+id/cancel_result"
+        android:layout_width="132dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:theme="@style/Theme.MovieDetails"
+        android:text="@string/cancel_button"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:background="@color/black_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_view_search_view_result"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/search_view_search_view_result"
+        >
+
+        <Spinner
+            android:id="@+id/genre_filter"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:scrollbars="horizontal"
+            android:contentDescription="genre filter"
+            android:contextClickable="true"
+            android:background="@color/purple_100"/>
+        <Spinner
+            android:id="@+id/platform_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view_search_view_result"
+
+        android:layout_width="231dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+
+        android:background="@drawable/round_search_field"
+        app:iconifiedByDefault="false"
+        app:layout_constraintEnd_toStartOf="@+id/cancel_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="@string/search_view"
+        app:searchIcon="@drawable/ic_round_search_24">
+
+    </androidx.appcompat.widget.SearchView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_category"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
