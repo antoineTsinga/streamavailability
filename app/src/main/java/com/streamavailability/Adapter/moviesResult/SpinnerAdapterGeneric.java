@@ -68,7 +68,7 @@ public class SpinnerAdapterGeneric<T>   extends  ArrayAdapter<T> {
             field.setAccessible(true);
 
             String fieldValue2 = (String) field.get(value);
-            Log.i("Adapter", fieldValue2);
+
             label.setText(fieldValue2);
         } catch (NoSuchFieldException e) {
             Log.e("Adapter NoSuchFieldException",e.getMessage());
@@ -98,7 +98,7 @@ public class SpinnerAdapterGeneric<T>   extends  ArrayAdapter<T> {
             field = cls.getDeclaredField(fieldValue);
             field.setAccessible(true);
             String fieldValue2 = (String) field.get(value);
-            Log.i("Adapter", fieldValue2);
+
             label.setText(fieldValue2);
         } catch (NoSuchFieldException e) {
             Log.e("Adapter NoSuchFieldException",e.getMessage());

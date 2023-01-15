@@ -252,7 +252,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
     }
 
-    private void fetchData( Call<MovieResponse> call, SectionMovieAdapter adapter) {
+    public static void fetchData( Call<MovieResponse> call, SectionMovieAdapter adapter) {
         call.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(@NonNull Call<MovieResponse> call, @NonNull Response<MovieResponse> response) {

@@ -30,7 +30,6 @@ public interface MovieService {
 
    List<Movie> getInWatchlist();
 
-
    @GET("movie/{movie_id}")
    Call<Movie> getMoviesDetails(@Path("movie_id") String movieId,
                                         @Query("api_key") String apiKey,
@@ -46,6 +45,34 @@ public interface MovieService {
    @GET("watch/providers/movie")
    Call<ProviderResponse> getProviderMovie(@Query("api_key") String apiKey);
 
+   @GET("search/movie")
+   Call<MovieResponse> searchMovie(@Query("api_key") String apiKey,
+                                   @Query("language") String language,
+                                   @Query("query") String query,
+                                   @Query("page") int page,
+                                   @Query("region") String region
+                                   );
+
+
+   @GET("discover/movie")
+   Call<MovieResponse> getFilterMovie(@Query("api_key") String apiKey,
+                                   @Query("language") String language,
+                                   @Query("region") String region,
+                                   @Query("page") int page,
+                                   @Query("watch_region") String watchRegion,
+                                   @Query("with_watch_providers") String watchProvider,
+                                   @Query("with_genres") String genre
+   );
+
+
+   /*
+   * https://api.themoviedb.org/3/search/movie?api_key=895d65ebbdd5b9379ad195b07e0ed023
+   * &language=en-US
+   * &query=%3C%3Csearchvalue%3E%3E
+   * &page=1
+   * &include_adult=false
+   * &region=FR
+   * */
 }
 
 
