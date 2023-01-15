@@ -83,6 +83,21 @@ public class FirebaseService {
                 });
     }
 
+    public void deleteUserById(String userId ){
+        mFirestore.collection("user").document(userId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("FirebaseService", "User deletion success");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("FirebaseService", "Error deleting user to Firestore", e);
+                    }
+                });
+    }
+
 
 
 
@@ -92,7 +107,7 @@ public class FirebaseService {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d("FirebaseService", "User created in Fire store");
+                        Log.d("FirebaseService", "User creation success");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

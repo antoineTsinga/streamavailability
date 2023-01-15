@@ -2,11 +2,13 @@ package com.streamavailability.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,9 +23,11 @@ import com.streamavailability.service.FirebaseService;
 public class LoginActivity extends AppCompatActivity {
     private EditText mUsernameField;
     private EditText mPasswordField;
+    private TextView textToRegistration;
     private Button mSignInButton;
     private FirebaseService mFirebaseService;
     private ActivityLogin2Binding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +41,13 @@ public class LoginActivity extends AppCompatActivity {
         mUsernameField = findViewById(R.id.username_field_login);
         mSignInButton = findViewById(R.id.sign_in_button2);
         mPasswordField = findViewById(R.id.password_field_login);
+        textToRegistration = findViewById(R.id.not_have_account);
 
+
+        textToRegistration.setOnClickListener(v->{
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        });
 
         if(FirebaseAuth.getInstance().getCurrentUser() != null){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
