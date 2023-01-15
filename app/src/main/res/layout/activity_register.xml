@@ -4,6 +4,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    tools:context=".auth.RegisterActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearColumnsigninforfre"
+        android:layout_gravity="top|center"
+        android:layout_height="400dp"
+        android:padding="10dp"
+        android:layout_marginBottom="156px"
+        android:layout_marginEnd="39px"
+        android:layout_marginStart="39px"
+        android:layout_marginTop="496px"
+        android:background="@color/purple_100"
+        android:layout_width="match_parent"
+        android:orientation="vertical" style="@style/groupStyleblack_900_e5">
+
+        <TextView
+            android:id="@+id/txtSigninforfre"
+            style="@style/txtInderregular20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="13px"
+            android:layout_marginTop="152px"
+            android:layout_marginEnd="13px"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Sign up for free"
+            android:textSize="20dp"
+            tools:text="Sign up for free" />
+
+        <EditText
+            android:id="@+id/usernameField"
+            style="@style/etSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginStart="13px"
+            android:layout_marginTop="42px"
+            android:layout_marginEnd="13px"
+            android:background="@drawable/rectangle_bg_light_blue_600_4c_radius_4"
+            android:ellipsize="end"
+            android:hint="username"
+            android:inputType="text"
+            android:paddingStart="11px"
+            android:paddingTop="12px"
+            android:paddingEnd="30px"
+            android:paddingBottom="7px"
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:textColorHint="@color/bluegray_100_7f"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/emailField"
+            style="@style/etSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginStart="13px"
+            android:layout_marginTop="86px"
+            android:layout_marginEnd="13px"
+            android:background="@drawable/rectangle_bg_light_blue_600_4c_radius_4"
+            android:ellipsize="end"
+            android:hint="email"
+            android:inputType="text"
+            android:paddingStart="11px"
+            android:paddingTop="12px"
+            android:paddingEnd="30px"
+            android:paddingBottom="7px"
+            android:singleLine="true"
+            android:textColorHint="@color/bluegray_100_7f"
+            android:textSize="15dp"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/passwordField"
+            style="@style/etSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_marginStart="13px"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="13px"
+            android:background="@drawable/rectangle_bg_light_blue_600_4c_radius_4"
+            android:ellipsize="end"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:paddingStart="11px"
+            android:paddingTop="12px"
+            android:paddingEnd="30px"
+            android:paddingBottom="7px"
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:textColorHint="@color/bluegray_100_7f"
+            tools:ignore="Autofill" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signUpButton"
+            style="@style/btnSolidRounded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13px"
+            android:layout_marginTop="34dp"
+            android:layout_marginEnd="12px"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingStart="30px"
+            android:paddingTop="20px"
+            android:paddingEnd="30px"
+            android:paddingBottom="10px"
+            android:singleLine="true"
+            android:textSize="15dp"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            tools:text="Sign up"/>
+
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_marginTop="80dp"
     android:orientation="vertical"
     tools:context=".auth.RegisterActivity">
@@ -40,4 +176,4 @@
         android:layout_height="wrap_content"
         android:text="Sign Up"/>
 
-</LinearLayout>
+</LinearLayout>-->
