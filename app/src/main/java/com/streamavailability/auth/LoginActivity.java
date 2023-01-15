@@ -44,10 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-
         mSignInButton.setOnClickListener(v -> {
 
-            System.out.println("ygviberjfvbfojfvjsrnreonob");
 
             String username = mUsernameField.getText().toString();
             String password = mPasswordField.getText().toString();

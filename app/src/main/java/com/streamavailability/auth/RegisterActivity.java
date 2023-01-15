@@ -46,12 +46,10 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(Task task) {
                     if (task.isSuccessful()) {
-                        System.out.printf("regrister succes");
                         Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
-                        System.out.printf("regrister failded");
                         Toast.makeText(RegisterActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
