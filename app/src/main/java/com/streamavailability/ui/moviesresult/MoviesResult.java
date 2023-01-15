@@ -80,7 +80,7 @@ public class MoviesResult extends AppCompatActivity {
 
         fetchDataGenre(apiKey, retrofit);
         fetchDataProvider(apiKey, retrofit);
-        fetchDataRegion(apiKey, retrofit);
+        fetchDataRegion(apiKey, retrofit, regionAdapter);
 
         genres = new ArrayList<>();
         providers = new ArrayList<>();
@@ -198,7 +198,7 @@ public class MoviesResult extends AppCompatActivity {
     }
 
 
-    private void fetchDataRegion(String apiKey,Retrofit retrofit) {
+    public static void fetchDataRegion(String apiKey,Retrofit retrofit, SpinnerAdapterGeneric<AvailableRegion> regionAdapter) {
         MovieService movieService = retrofit.create(MovieService.class);
         Call<AvailableRegionResponse> call = movieService.getAvailableRegion(apiKey);
         call.enqueue(new Callback<AvailableRegionResponse>() {

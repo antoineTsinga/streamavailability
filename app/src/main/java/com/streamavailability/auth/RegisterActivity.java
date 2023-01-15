@@ -2,11 +2,13 @@ package com.streamavailability.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,10 +20,12 @@ import com.streamavailability.service.FirebaseService;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEmailField;
+    private TextView textToLogin;
     private EditText mPasswordField;
     private EditText mUsernameField;
     private Button mSignUpButton;
     private FirebaseService mFirebaseService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
         mUsernameField = findViewById(R.id.usernameField);
         mSignUpButton = findViewById(R.id.signUpButton);
 
+
+
         mSignUpButton.setOnClickListener(v -> {
             String email = mEmailField.getText().toString();
             String password = mPasswordField.getText().toString();
@@ -42,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             System.out.println("Click " + email +" "+ password);
 
-            mFirebaseService.createUserWithEmailAndPassword(password,email, new OnCompleteListener() {
+            mFirebaseService.createUserWithEmailAndPassword(password,username, email, new OnCompleteListener() {
                 @Override
                 public void onComplete(Task task) {
                     if (task.isSuccessful()) {

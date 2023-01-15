@@ -28,16 +28,16 @@ public class FirebaseService {
         mFirestore = FirebaseFirestore.getInstance();
     }
 
-    public void createUserWithEmailAndPassword(String password, String username, final OnCompleteListener listener) {
+    public void createUserWithEmailAndPassword(String password, String username,String email, final OnCompleteListener listener) {
         System.out.println("createUserWithEmailAndPassword");
-       mAuth.createUserWithEmailAndPassword(username, password)
+       mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(task -> {
 
                     System.out.println("addOnCompleteListener");
                     if (task.isSuccessful()) {
                         Log.d("FirebaseService", "createUserWithEmail:success");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        User newUser = new User(username, password);
+                        User newUser = new User(username,email, password);
                         createUserInFirestore(user.getUid(), newUser);
                         listener.onComplete(task);
                     } else {

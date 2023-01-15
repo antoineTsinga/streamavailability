@@ -23,38 +23,13 @@
             android:layout_marginEnd="12px"
             android:layout_marginStart="12px"
             android:layout_width="match_parent"
+            android:layout_marginTop="23dp"
             android:singleLine="true"
             android:textSize="17dp"
             android:text="Stream Availability"
             style="@style/txtInderregular20"/>
 
-        <FrameLayout android:id="@+id/frameStackellipsetwo"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="100px"
-            android:layout_marginEnd="12px"
-            android:layout_marginStart="12px"
-            android:layout_marginTop="52px" android:layout_width="100px">
-            <ImageView android:id="@+id/imageEllipseTwo"
-                android:layout_gravity="start"
-                android:layout_height="100px"
-                android:layout_width="100px"
-                android:scaleType="centerCrop"
-                tools:ignore="ContentDescription" tools:src="@drawable/img_ellipse2"/>
 
-            <ImageButton
-                android:id="@+id/btnTicket"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="bottom|end"
-                android:layout_marginStart="10px"
-                android:layout_marginTop="10px"
-                android:background="@drawable/rectangle_bg_deep_orange_600_border_black_900_radius_20"
-                android:paddingHorizontal="12px"
-                android:paddingVertical="12px"
-                android:scaleType="fitCenter"
-                android:src="@drawable/img_ticket"
-                tools:ignore="SpeakableTextPresentCheck" />
-        </FrameLayout>
         <TextView android:ellipsize="end" android:id="@+id/txtLabel"
             android:layout_height="wrap_content"
             android:layout_marginEnd="11.44dp"
@@ -74,6 +49,39 @@
             android:ellipsize="end"
             android:hint=""
             android:id="@+id/etInput" android:inputType="text"
+            android:layout_height="48dp"
+            android:layout_marginEnd="3px"
+            android:layout_marginStart="3px"
+            android:layout_marginTop="9px"
+            android:layout_width="match_parent"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="1px"
+            android:textSize="12dp"
+            android:paddingBottom="11px"
+            android:paddingEnd="30px"
+            android:paddingStart="10px"
+            android:paddingTop="12px"
+            android:singleLine="true"
+            android:textColorHint="@color/white"
+            style="@style/etRoundedOutline" tools:ignore="Autofill"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtEmail"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11.44dp"
+            android:layout_marginStart="3.43dp"
+            android:layout_marginTop="21.96dp"
+            android:layout_width="wrap_content"
+            android:letterSpacing="0.03"
+            android:lineSpacingExtra="1.14dp"
+            android:textSize="15dp"
+            android:singleLine="true"
+            android:text="Email"
+            style="@style/txtInterregular12" tools:text="Email"/>
+        <EditText
+            android:background="@drawable/rectangle_border_white_a700_radius_5"
+            android:drawablePadding="11.44dp"
+            android:ellipsize="end"
+            android:hint=""
+            android:id="@+id/emailInput" android:inputType="text"
             android:layout_height="48dp"
             android:layout_marginEnd="3px"
             android:layout_marginStart="3px"
@@ -147,39 +155,42 @@
             android:textSize="15dp"
             android:text="Country"
             style="@style/txtInterregular12" tools:text="Country"/>
-        <EditText
-            android:id="@+id/etInputBox"
-            style="@style/etRoundedOutline_1"
-            android:layout_width="match_parent"
+
+
+        <Spinner
+            android:id="@+id/country"
+            android:layout_width="100dp"
             android:layout_height="49dp"
-            android:layout_marginTop="4.58dp"
-            android:background="@drawable/rectangle_border_white_a700_radius_3"
-            android:drawableEnd="@drawable/drawable_img_vector_gray_501"
-            android:drawablePadding="33.34dp"
-            android:ellipsize="end"
-            android:hint="Country"
-            android:inputType="text"
+            android:scrollbars="vertical"
+            android:contentDescription="country filter"
+            android:contextClickable="true"
+            android:background="@color/purple_100"
+            />
+
+        <TextView android:ellipsize="end"
+            android:id="@+id/txtLabelLanguage"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11.44dp"
+            android:layout_marginTop="23.79dp"
+            android:layout_width="wrap_content"
             android:letterSpacing="0.03"
             android:lineSpacingExtra="1.14dp"
-            android:paddingStart="11.44dp"
-            android:paddingTop="10.98dp"
-            android:paddingEnd="11.44dp"
-            android:paddingBottom="8.24dp"
             android:singleLine="true"
-            android:textSize="12dp"
-            android:textColorHint="@color/white"
-            tools:ignore="Autofill" />
+            android:textSize="15dp"
+            android:text="Language"
+            style="@style/txtInterregular12" tools:text="Language"/>
 
-        <View
-            android:id="@+id/lineLineFour"
-            android:layout_width="300dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="12px"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12px"
-            android:layout_marginBottom="9dp"
-            android:background="@color/white" />
+        <Spinner
+            android:id="@+id/language"
+            android:layout_width="100dp"
+            android:layout_height="49dp"
+            android:scrollbars="vertical"
+            android:contentDescription="language filter"
+            android:contextClickable="true"
+            android:background="@color/purple_100"
+            />
+
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSave"
@@ -205,17 +216,7 @@
             android:textAllCaps="false"
             tools:text="SAVE" />
 
-        <TextView android:ellipsize="end" android:id="@+id/txtFaq"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12px"
-            android:layout_marginStart="12px"
-            android:layout_marginTop="39px"
-            android:layout_width="wrap_content"
-            android:singleLine="true"
-            android:textSize="15dp"
-            android:text="FAQ"
-            style="@style/txtInderregular15" tools:text="FAQ"/>
+
 
         <androidx.appcompat.widget.AppCompatButton android:ellipsize="end"
             android:id="@+id/btnDeleteaccount"

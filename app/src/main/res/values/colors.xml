@@ -19,5 +19,8 @@
     <color name="purple_100">#4D00A8E1</color>
     <color name="light_blue_600_3f">#3f00a8e1</color>
     <color name="light_blue_600_7f">#7f00a8e1</color>
+    <color name="black_900_e5">#e50a0909</color>
+    <color name="bluegray_100_7f">#7fcccccc</color>
+    <color name="light_blue_600_4c">#4c00a8e1</color>
 
 </resources>
