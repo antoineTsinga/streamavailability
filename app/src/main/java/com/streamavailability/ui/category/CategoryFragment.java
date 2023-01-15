@@ -1,5 +1,6 @@
 package com.streamavailability.ui.category;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ import com.streamavailability.Model.Category;
 import com.streamavailability.Model.MovieWatchlist;
 import com.streamavailability.R;
 import com.streamavailability.databinding.FragmentCategoryBinding;
-
+import com.streamavailability.ui.moviesresult.MoviesResult;
 
 
 public class CategoryFragment extends Fragment {
@@ -61,6 +62,13 @@ public class CategoryFragment extends Fragment {
 
                 System.out.println("-----------------------------------"+category.getName());
                 holder.nameCategoryView.setText(category.getName());
+
+                holder.nameCategoryView.setOnClickListener(V->{
+                    Intent CategoryMovieIntent = new Intent(getContext(), MoviesResult.class);
+
+                    CategoryMovieIntent.putExtra("genre", category.getTmdb_id());
+                    getContext().startActivity(CategoryMovieIntent);
+                });
             }
 
             @Override
