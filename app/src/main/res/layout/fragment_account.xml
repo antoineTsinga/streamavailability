@@ -100,7 +100,7 @@
             android:textSize="15dp"
             android:lineSpacingExtra="1px"
             android:singleLine="true"
-            android:text="@{accountVM.accountModel.txtPassword}"
+            android:text="Password"
             style="@style/txtInterregular12" tools:text="Password"/>
         <EditText
             android:background="@drawable/rectangle_border_white_a700_radius_5"

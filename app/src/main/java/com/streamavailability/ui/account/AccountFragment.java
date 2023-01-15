@@ -19,6 +19,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.streamavailability.MainActivity;
 import com.streamavailability.Model.User;
 import com.streamavailability.auth.LoginActivity;
@@ -30,7 +38,7 @@ public class AccountFragment extends Fragment {
     private FragmentAccountBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private User user= new User();
+    private User user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,10 +51,29 @@ public class AccountFragment extends Fragment {
 
         if (currentUser != null) {
             // User is signed in
-            String name = currentUser.getDisplayName();
-            binding.etInput.setText(name);
-            binding.etPasswordOne.setText(user.getPassword());
-           // binding.etInputBox.setText(user.getCountry());
+            String uid = currentUser.getUid();
+            // Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("users").document(uid);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            User user = task.getResult().toObject(User.class);
+                            binding.etInput.setText(user.getUsername());
+                            System.out.println("----------" + user.getUsername());
+                            binding.etPasswordOne.setText(user.getPassword());
+                            binding.etInputBox.setText(user.getCountry());
+                        } else {
+                            System.out.println("---- Document doesn't exist-----");
+                        }
+                    } else {
+                        // Handle error
+                    }
+                }
+            });
 
             binding.btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -54,8 +81,11 @@ public class AccountFragment extends Fragment {
                     user.setUsername(binding.etInput.getText().toString());
                     user.setPassword(binding.etPasswordOne.getText().toString());
                     user.setCountry(binding.etInputBox.getText().toString());
+                    //save data to Firebase
+
                 }
             });
+
             binding.btnDeleteaccount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,18 +94,19 @@ public class AccountFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        // User account deleted
+// User account deleted
                                         Toast.makeText(getContext(), "Account deleted", Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(getActivity(), LoginActivity.class);
                                         startActivity(intent);
                                     } else {
-                                        // If deletion fails
+// If deletion fails
                                         Toast.makeText(getContext(), "Deletion failed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 }
             });
+
             binding.btnLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,7 +135,7 @@ public class AccountFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
 }
