@@ -43,7 +43,7 @@ public interface MovieService {
    @GET("watch/providers/regions")
    Call<AvailableRegionResponse> getAvailableRegion(@Query("api_key") String apiKey);
 
-   @GET("/watch/providers/movie")
+   @GET("watch/providers/movie")
    Call<ProviderResponse> getProviderMovie(@Query("api_key") String apiKey);
 
 }

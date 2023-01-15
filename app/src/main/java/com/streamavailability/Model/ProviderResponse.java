@@ -4,19 +4,21 @@ import java.util.ArrayList;
 
 public class ProviderResponse {
 
-    private ArrayList<Platforms> results;
+    private ArrayList<Provider> results;
 
-    public ProviderResponse(){}
+    public ProviderResponse(){
 
-    public ProviderResponse(ArrayList<Platforms> results) {
+    }
+
+    public ProviderResponse(ArrayList<Provider> results) {
         this.results = results;
     }
 
-    public ArrayList<Platforms> getResults() {
+    public ArrayList<Provider> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Platforms> results) {
+    public void setResults(ArrayList<Provider> results) {
         this.results = results;
     }
 }
