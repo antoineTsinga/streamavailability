@@ -28,10 +28,7 @@ import com.streamavailability.Model.Category;
 import com.streamavailability.Model.MovieWatchlist;
 import com.streamavailability.R;
 import com.streamavailability.databinding.FragmentCategoryBinding;
-import com.streamavailability.databinding.FragmentHomeBinding;
-import com.streamavailability.databinding.FragmentWatchlistBinding;
-import com.streamavailability.ui.home.HomeViewModel;
-import com.streamavailability.ui.watchlist.WatchlistViewModel;
+
 
 
 public class CategoryFragment extends Fragment {

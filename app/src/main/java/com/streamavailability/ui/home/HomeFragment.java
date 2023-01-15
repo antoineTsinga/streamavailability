@@ -3,25 +3,36 @@ package com.streamavailability.ui.home;
 
 
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.streamavailability.R;
 import com.streamavailability.databinding.FragmentHomeBinding;
 import com.streamavailability.Adapter.home.MovieSliderAdapter;
 import com.streamavailability.Adapter.home.SectionMovieAdapter;
 import com.streamavailability.Model.Movie;
 import com.streamavailability.Model.MovieResponse;
 import com.streamavailability.service.MovieService;
+import com.streamavailability.ui.moviedetails.MovieDetails;
+import com.streamavailability.ui.moviesresult.MoviesResult;
 import com.streamavailability.ui.util.DepthPageTransformer;
 import com.streamavailability.ui.util.FixedSpeedScroller;
 
@@ -30,6 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +51,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
@@ -85,6 +98,13 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         viewPager = binding.viewPager;
+
+        binding.searchViewSearchViewHome.setOnClickListener(view -> {
+
+            Intent moviesResultIntent = new Intent(getContext(), MoviesResult.class);
+            getContext().startActivity(moviesResultIntent);
+        });
+
 
         String apiKey = "895d65ebbdd5b9379ad195b07e0ed023";
         movieSliderList = new ArrayList<>();
@@ -212,6 +232,16 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        actionBar.hide();
+    }
+
+
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
@@ -220,8 +250,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-
     }
 
     private void fetchData( Call<MovieResponse> call, SectionMovieAdapter adapter) {
@@ -231,7 +259,7 @@ public class HomeFragment extends Fragment {
                 if (response.isSuccessful()) {
                     MovieResponse movieResponse = response.body();
                     assert movieResponse != null;
-                    List<Movie> movieList = movieResponse.getResults();
+                    List<Movie> movieList = movieResponse.getResults().stream().filter(movie -> movie.getPoster_path() != null).collect(Collectors.toList());
 
                     for (Movie movie : movieList) {
                         movie.setPoster_path("https://image.tmdb.org/t/p/original" + movie.getPoster_path());
@@ -294,6 +322,7 @@ public class HomeFragment extends Fragment {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                if(getActivity() ==null) return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
