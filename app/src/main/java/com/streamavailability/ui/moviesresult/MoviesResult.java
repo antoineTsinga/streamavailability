@@ -268,7 +268,7 @@ public class MoviesResult extends AppCompatActivity {
             if(selectedGenre==null && selectedProvider==null&& selectedRegion==null){
                 searchMovie(apiKey, retrofit, query, page, true);
             }else{
-                //fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, true);
+                fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, true);
             }
         });
 
