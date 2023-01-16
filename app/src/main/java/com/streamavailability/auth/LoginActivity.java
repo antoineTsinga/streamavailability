@@ -1,6 +1,8 @@
 package com.streamavailability.auth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import android.content.Intent;
@@ -14,7 +16,13 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.streamavailability.MainActivity;
+import com.streamavailability.MainViewModel;
+import com.streamavailability.Model.User;
 import com.streamavailability.R;
 import com.streamavailability.databinding.ActivityLogin2Binding;
 import com.streamavailability.databinding.FragmentHomeBinding;
@@ -49,9 +57,40 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        if(FirebaseAuth.getInstance().getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        if (currentUser != null) {
+            // User is signed in
+            String uid = currentUser.getUid();
+            // Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("users").document(uid);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                    if (task.isSuccessful()) {
+
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            User user = task.getResult().toObject(User.class);
+                            MainViewModel viewModel = new ViewModelProvider(LoginActivity.this).get(MainViewModel.class);
+                            viewModel.setUser(user);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("user", user);
+                            startActivity(intent);
+
+                        } else {
+                            System.out.println("---- Document doesn't exist-----");
+
+                        }
+                    } else {
+                        // Handle error
+                    }
+                }
+            });
         }
 
         mSignInButton.setOnClickListener(v -> {
@@ -66,9 +105,23 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(Task task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        mFirebaseService.getUserById(currentUser.getUid(), new OnCompleteListener() {
+                            @Override
+                            public void onComplete(@NonNull Task task) {
+                                if(task.isSuccessful()){
+                                    User user = (User) task.getResult();
+                                    MainViewModel viewModel = new ViewModelProvider(LoginActivity.this).get(MainViewModel.class);
+                                    viewModel.setUser(user);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("user", user);
+
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+
                     } else {
                         Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
                     }

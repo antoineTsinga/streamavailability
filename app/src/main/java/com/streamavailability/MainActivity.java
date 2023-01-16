@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,11 +19,15 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.material.navigation.NavigationBarView;
+import com.streamavailability.Model.User;
 import com.streamavailability.databinding.ActivityMainBinding;
+import com.streamavailability.ui.home.HomeFragment;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private User user;
 
     private ActivityMainBinding binding;
 
@@ -76,5 +81,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        // Save the state of the TextView
+        savedInstanceState.putSerializable("user", user);
+
+
+
+    }
+
+
 
 }

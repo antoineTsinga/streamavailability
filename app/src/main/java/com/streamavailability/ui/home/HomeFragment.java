@@ -20,11 +20,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.streamavailability.MainActivity;
+import com.streamavailability.MainViewModel;
+import com.streamavailability.Model.User;
 import com.streamavailability.R;
+import com.streamavailability.auth.LoginActivity;
 import com.streamavailability.databinding.FragmentHomeBinding;
 import com.streamavailability.Adapter.home.MovieSliderAdapter;
 import com.streamavailability.Adapter.home.SectionMovieAdapter;
@@ -73,6 +85,7 @@ public class HomeFragment extends Fragment {
     private List<Movie> movieSliderList,movieRecommendationsList,movieMostPopularList,
             movieInYourWatchlistList, movieSimilarToList;
 
+    private User user = new User();
 
     private ViewPager viewPager;
 
@@ -99,11 +112,12 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         viewPager = binding.viewPager;
 
-        binding.searchViewSearchViewHome.setOnClickListener(view -> {
 
-            Intent moviesResultIntent = new Intent(getContext(), MoviesResult.class);
-            getContext().startActivity(moviesResultIntent);
-        });
+
+        Bundle bundle = getArguments();
+      //  String textViewText = bundle.getString("textViewText");
+
+
 
 
         String apiKey = "895d65ebbdd5b9379ad195b07e0ed023";
@@ -162,69 +176,115 @@ public class HomeFragment extends Fragment {
         //pageSwitcher(5);
         timer();
         //bind recycler view
-        movieMostPopularListRecyclerView = binding.sectionMostPopular;
-        movieRecommendationsRecyclerView = binding.sectionRecommendation;
-        movieInYourWatchlistListRecyclerView = binding.sectionInWatchlist;
-        movieSimilarToListRecyclerView = binding.sectionSimilar;
 
-        // initiate data
-        movieMostPopularList = new ArrayList<>();
-        movieRecommendationsList = new ArrayList<>();
-        movieSimilarToList = new ArrayList<>();
-        movieInYourWatchlistList = new ArrayList<>();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        // initiate adapter
-        sectionMovieAdapterMostPopular = new SectionMovieAdapter(movieMostPopularList, getContext());
-        sectionMovieAdapterSimilar = new SectionMovieAdapter(movieSimilarToList, getContext());
-        sectionMovieAdapterWatchlist = new SectionMovieAdapter(movieInYourWatchlistList, getContext());
-        sectionMovieAdapterRecommendation = new SectionMovieAdapter(movieRecommendationsList, getContext());
+        if (currentUser != null) {
 
-        // initiate layout manager
-        LinearLayoutManager layoutManagerMostPopular = new LinearLayoutManager(getContext());
-        layoutManagerMostPopular.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerMostPopular.setReverseLayout(true);
-        layoutManagerMostPopular.setStackFromEnd(true);
+            // User is signed in
+            String uid = currentUser.getUid();
+            // Firestore
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference docRef = db.collection("users").document(uid);
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-        LinearLayoutManager layoutManagerRecommendation = new LinearLayoutManager(binding.sectionMostPopular.getContext());
-        layoutManagerRecommendation.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerRecommendation.setReverseLayout(true);
-        layoutManagerRecommendation.setStackFromEnd(true);
+                    if (task.isSuccessful()) {
 
-        LinearLayoutManager layoutManagerSimilar = new LinearLayoutManager(binding.sectionMostPopular.getContext());
-        layoutManagerSimilar.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerSimilar.setReverseLayout(true);
-        layoutManagerSimilar.setStackFromEnd(true);
-
-        LinearLayoutManager layoutManagerWatchlist = new LinearLayoutManager(binding.sectionMostPopular.getContext());
-        layoutManagerWatchlist.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerWatchlist.setReverseLayout(true);
-        layoutManagerWatchlist.setStackFromEnd(true);
-
-        // set Layout manager for the recycler views
-        movieRecommendationsRecyclerView.setLayoutManager(layoutManagerRecommendation);
-        movieMostPopularListRecyclerView.setLayoutManager(layoutManagerMostPopular);
-        movieInYourWatchlistListRecyclerView.setLayoutManager(layoutManagerWatchlist);
-        movieSimilarToListRecyclerView.setLayoutManager(layoutManagerSimilar);
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 
 
-        // set adapter for recycler view
-        movieRecommendationsRecyclerView.setAdapter(sectionMovieAdapterRecommendation);
-        movieMostPopularListRecyclerView.setAdapter(sectionMovieAdapterMostPopular);
-        movieInYourWatchlistListRecyclerView.setAdapter(sectionMovieAdapterWatchlist);
-        movieSimilarToListRecyclerView.setAdapter(sectionMovieAdapterSimilar);
+                            binding.searchViewSearchViewHome.setOnClickListener(view -> {
+
+                                Intent moviesResultIntent = new Intent(getContext(), MoviesResult.class);
+                                moviesResultIntent.putExtra("user", user);
+                                getContext().startActivity(moviesResultIntent);
+                            });
 
 
-        // fetch data
+                            user = task.getResult().toObject(User.class);
+                        movieMostPopularListRecyclerView = binding.sectionMostPopular;
+                        movieRecommendationsRecyclerView = binding.sectionRecommendation;
+                        movieInYourWatchlistListRecyclerView = binding.sectionInWatchlist;
+                        movieSimilarToListRecyclerView = binding.sectionSimilar;
 
-        fetchData(movieService.getMostPopulars(apiKey), sectionMovieAdapterMostPopular);
+                        // initiate data
+                        movieMostPopularList = new ArrayList<>();
+                        movieRecommendationsList = new ArrayList<>();
+                        movieSimilarToList = new ArrayList<>();
+                        movieInYourWatchlistList = new ArrayList<>();
 
-        fetchData(movieService.getRecommendations("505642", apiKey), sectionMovieAdapterRecommendation);
 
-        fetchData(movieService.getSimilarMovies("505642", apiKey), sectionMovieAdapterSimilar);
+                        // initiate adapter
+                        sectionMovieAdapterMostPopular = new SectionMovieAdapter(movieMostPopularList, getContext());
+                        sectionMovieAdapterMostPopular.setUser(user);
+                        sectionMovieAdapterSimilar = new SectionMovieAdapter(movieSimilarToList, getContext());
+                        sectionMovieAdapterSimilar.setUser(user);
+                        sectionMovieAdapterWatchlist = new SectionMovieAdapter(movieInYourWatchlistList, getContext());
+                        sectionMovieAdapterWatchlist.setUser(user);
+                        sectionMovieAdapterRecommendation = new SectionMovieAdapter(movieRecommendationsList, getContext());
+                        sectionMovieAdapterRecommendation.setUser(user);
 
-        fetchData(movieService.getTrendingMovies(apiKey), sectionMovieAdapterWatchlist);
+                        // initiate layout manager
+                        LinearLayoutManager layoutManagerMostPopular = new LinearLayoutManager(getContext());
+                        layoutManagerMostPopular.setOrientation(RecyclerView.HORIZONTAL);
+                        layoutManagerMostPopular.setReverseLayout(true);
+                        layoutManagerMostPopular.setStackFromEnd(true);
 
+                        LinearLayoutManager layoutManagerRecommendation = new LinearLayoutManager(binding.sectionMostPopular.getContext());
+                        layoutManagerRecommendation.setOrientation(RecyclerView.HORIZONTAL);
+                        layoutManagerRecommendation.setReverseLayout(true);
+                        layoutManagerRecommendation.setStackFromEnd(true);
+
+                        LinearLayoutManager layoutManagerSimilar = new LinearLayoutManager(binding.sectionMostPopular.getContext());
+                        layoutManagerSimilar.setOrientation(RecyclerView.HORIZONTAL);
+                        layoutManagerSimilar.setReverseLayout(true);
+                        layoutManagerSimilar.setStackFromEnd(true);
+
+                        LinearLayoutManager layoutManagerWatchlist = new LinearLayoutManager(binding.sectionMostPopular.getContext());
+                        layoutManagerWatchlist.setOrientation(RecyclerView.HORIZONTAL);
+                        layoutManagerWatchlist.setReverseLayout(true);
+                        layoutManagerWatchlist.setStackFromEnd(true);
+
+                        // set Layout manager for the recycler views
+                        movieRecommendationsRecyclerView.setLayoutManager(layoutManagerRecommendation);
+                        movieMostPopularListRecyclerView.setLayoutManager(layoutManagerMostPopular);
+                        movieInYourWatchlistListRecyclerView.setLayoutManager(layoutManagerWatchlist);
+                        movieSimilarToListRecyclerView.setLayoutManager(layoutManagerSimilar);
+
+
+                        // set adapter for recycler view
+                        movieRecommendationsRecyclerView.setAdapter(sectionMovieAdapterRecommendation);
+                        movieMostPopularListRecyclerView.setAdapter(sectionMovieAdapterMostPopular);
+                        movieInYourWatchlistListRecyclerView.setAdapter(sectionMovieAdapterWatchlist);
+                        movieSimilarToListRecyclerView.setAdapter(sectionMovieAdapterSimilar);
+
+
+                        // fetch data
+
+                        fetchData(movieService.getMostPopulars(apiKey), sectionMovieAdapterMostPopular);
+
+                        fetchData(movieService.getRecommendations("505642", apiKey), sectionMovieAdapterRecommendation);
+
+                        fetchData(movieService.getSimilarMovies("505642", apiKey), sectionMovieAdapterSimilar);
+
+                        fetchData(movieService.getTrendingMovies(apiKey), sectionMovieAdapterWatchlist);
+
+
+                          //  System.out.println("-----------ici----------"+user.getCountry());
+                        } else {
+                            System.out.println("---- Document doesn't exist-----");
+
+                        }
+                    } else {
+                        // Handle error
+                    }
+                }
+            });
+        }
 
 
 
@@ -237,6 +297,8 @@ public class HomeFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         actionBar.hide();
+
+
     }
 
 

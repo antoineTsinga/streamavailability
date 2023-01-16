@@ -2,7 +2,7 @@ package com.streamavailability.Adapter.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +10,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import com.streamavailability.Model.User;
 import com.streamavailability.R;
 import com.streamavailability.Model.Movie;
+
 import com.streamavailability.ui.moviedetails.MovieDetails;
 
 import java.util.List;
 
 public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapter.ViewHolder>{
 
+
+    private User user;
     private  List<Movie> movieList;
     private Context context;
     @NonNull
@@ -80,11 +83,6 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
 
             titleMovie = itemView.findViewById(R.id.card_home_title_movie);
             poster = itemView.findViewById(R.id.card_home_poster);
-            /*
-            platform1 = itemView.findViewById(R.id.card_home_platform1);
-            platform2 = itemView.findViewById(R.id.card_home_platform2);
-            platform3 = itemView.findViewById(R.id.card_home_platform3);
-*/
             cardView = (ConstraintLayout) itemView.findViewById(R.id.card_movie_in_home);
 
 
@@ -92,24 +90,9 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
                 Movie movie = movieList.get(getAdapterPosition());
 
 
-
-/*
-                fragmentManager.beginTransaction()
-                       .setCustomAnimations(
-                                R.anim.slide_in,  // enter
-                                R.anim.fade_out,  // exit
-                                R.anim.fade_in,   // popEnter
-                                R.anim.slide_out  // popExit
-                       )
-                        .addSharedElement(poster, "details_poster")
-                        .attach(fragment)
-                        //.replace(R.id.nav_host_fragment_activity_main, fragment)
-                        .addToBackStack(null)
-                        .commit();
-*/
-
                 Intent movieIntent = new Intent(itemView.getContext(), MovieDetails.class);
                 movieIntent.putExtra("movie", movie);
+                movieIntent.putExtra("user", user);
                 itemView.getContext().startActivity(movieIntent);
 
 
@@ -132,5 +115,9 @@ public class SectionMovieAdapter extends RecyclerView.Adapter<SectionMovieAdapte
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

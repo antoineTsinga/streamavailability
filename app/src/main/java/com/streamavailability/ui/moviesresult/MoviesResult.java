@@ -28,6 +28,7 @@ import com.streamavailability.Model.Movie;
 import com.streamavailability.Model.MovieResponse;
 import com.streamavailability.Model.Provider;
 import com.streamavailability.Model.ProviderResponse;
+import com.streamavailability.Model.User;
 import com.streamavailability.R;
 import com.streamavailability.service.MovieService;
 import com.streamavailability.ui.home.HomeFragment;
@@ -61,11 +62,17 @@ public class MoviesResult extends AppCompatActivity {
     private ArrayList<AvailableRegion> regions;
     private List<Movie> movieResults;
 
+    private String incomingGenre;
     private String selectedRegion;
     private String selectedProvider;
     private String selectedGenre;
     private int page = 1;
     private String query;
+    private Boolean startRegions = true;
+    private Boolean startGenre = true;
+    private Boolean startProvider = true;
+
+    private User user;
 
 
     @Override
@@ -74,18 +81,11 @@ public class MoviesResult extends AppCompatActivity {
         setContentView(R.layout.activity_movies_result);
 
 
-        String genreArg = getIntent().getStringExtra("genre");
 
-        if(genreArg !=null) {
-
-            System.out.println("------ici----------");
-            selectedGenre = genreArg;
-            String genre = null;
-            getIntent().putExtra("genre", (String) null);
-        }
 
         setTitle("");
 
+        user = (User) getIntent().getSerializableExtra("user");
 
         String apiKey = "895d65ebbdd5b9379ad195b07e0ed023";
         Retrofit retrofit = new Retrofit.Builder()
@@ -116,6 +116,7 @@ public class MoviesResult extends AppCompatActivity {
         movieResults = new ArrayList<>();
 
         resultsMovieAdapter = new SectionMovieAdapter(movieResults, this );
+        resultsMovieAdapter.setUser(user);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
 
@@ -126,8 +127,18 @@ public class MoviesResult extends AppCompatActivity {
 
         MovieService movieService = retrofit.create(MovieService.class);
         Call<MovieResponse> call = movieService.getTrendingMovies(apiKey);
-        HomeFragment.fetchData(movieService.getMostPopulars(apiKey), resultsMovieAdapter);
+        //
 
+        String genreArg = getIntent().getStringExtra("genre");
+
+        if(genreArg !=null) {
+
+            System.out.println("------ici----------" + genreArg);
+            incomingGenre = genreArg;
+            getIntent().putExtra("genre", (String) null);
+        }else{
+            HomeFragment.fetchData(movieService.getMostPopulars(apiKey), resultsMovieAdapter);
+        }
 
         fetchDataGenre(apiKey, retrofit);
         fetchDataProvider(apiKey, retrofit);
@@ -157,10 +168,17 @@ public class MoviesResult extends AppCompatActivity {
                 Genre genre = genreAdapter.getItem(position);
                 selectedGenre = String.valueOf(genre.getId());
                 page=1;
-                fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, false);
+
+                if(startGenre){
+                    startGenre = false;
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, incomingGenre,page, false);
+                }else {
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, false);
+                }
+
                 // Here you can do the action you want to...
                 Toast.makeText(MoviesResult.this, "ID: " + genre.getId() + "\nName: " + genre.getName(),
-                        Toast.LENGTH_SHORT).show(); //TODO : call api there to apply filter
+                        Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapter) {  }
@@ -177,7 +195,12 @@ public class MoviesResult extends AppCompatActivity {
                 Provider provider = providerAdapter.getItem(position);
                 selectedProvider = String.valueOf(provider.getProviderId());
                 page=1;
-                fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre, page,false);
+                if(startProvider){
+                    startProvider = false;
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, incomingGenre,page, false);
+                }else {
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, false);
+                }
                 // Here you can do the action you want to...
                 Toast.makeText(MoviesResult.this, "ID: " + provider.getProviderId() + "\nName: " + provider.getProviderName(),
                         Toast.LENGTH_SHORT).show(); //TODO : call api there to apply filter
@@ -195,7 +218,12 @@ public class MoviesResult extends AppCompatActivity {
                 AvailableRegion region = regionAdapter.getItem(position);
                 selectedRegion = region.getIso();
                 page=1;
-                fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, false);
+                if(startRegions){
+                    startRegions = false;
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, incomingGenre,page, false);
+                }else {
+                    fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, false);
+                }
                 // Here you can do the action you want to...
                 Toast.makeText(MoviesResult.this, "ID: " + region.getIso() + "\nName: " + region.getNativeName(),
                         Toast.LENGTH_SHORT).show(); //TODO : call api there to apply filter
@@ -211,9 +239,7 @@ public class MoviesResult extends AppCompatActivity {
 
         Button cancel = findViewById(R.id.cancel_result);
         cancel.setOnClickListener(v ->{
-            searchView.clearFocus();
-            searchView.setQuery("", false);
-            searchView.setIconified(true);
+            HomeFragment.fetchData(movieService.getMostPopulars(apiKey), resultsMovieAdapter);
         });
 
 
@@ -242,7 +268,7 @@ public class MoviesResult extends AppCompatActivity {
             if(selectedGenre==null && selectedProvider==null&& selectedRegion==null){
                 searchMovie(apiKey, retrofit, query, page, true);
             }else{
-                fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, true);
+                //fetchFilterMovie(apiKey,retrofit, selectedProvider, selectedRegion, selectedGenre,page, true);
             }
         });
 
@@ -251,6 +277,7 @@ public class MoviesResult extends AppCompatActivity {
     }
 
     private void fetchDataGenre(String apiKey,Retrofit retrofit) {
+
         MovieService movieService = retrofit.create(MovieService.class);
         Call<GenreResponse> call = movieService.getGenres(apiKey);
         call.enqueue(new Callback<GenreResponse>() {
@@ -335,6 +362,7 @@ public class MoviesResult extends AppCompatActivity {
     }
 
     private void fetchFilterMovie(String apiKey,Retrofit retrofit, String provider, String region, String genre,int page, boolean seeMore){
+        System.out.println("-----ici-------fetch" );
         MovieService movieService = retrofit.create(MovieService.class);
         Call<MovieResponse> call = movieService.getFilterMovie(apiKey, "en-US", region, page, region, provider, genre);
         call.enqueue(new Callback<MovieResponse>() {
@@ -369,7 +397,7 @@ public class MoviesResult extends AppCompatActivity {
     }
 
     private void searchMovie(String apiKey,Retrofit retrofit, String query,int page, boolean seeMore){
-
+        System.out.println("-----ici-------search" );
         MovieService movieService = retrofit.create(MovieService.class);
         Call<MovieResponse> call = movieService.searchMovie(apiKey, "en-US", query, page,"US");
         call.enqueue(new Callback<MovieResponse>() {

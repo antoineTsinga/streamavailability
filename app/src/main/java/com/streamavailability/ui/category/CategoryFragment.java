@@ -47,6 +47,8 @@ public class CategoryFragment extends Fragment {
         CategoryViewModel categoryViewModel =
                 new ViewModelProvider(this).get(CategoryViewModel.class);
 
+
+
         binding = FragmentCategoryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         recyclerView = binding.recyclerViewCategory;
@@ -64,8 +66,10 @@ public class CategoryFragment extends Fragment {
                 holder.nameCategoryView.setText(category.getName());
 
                 holder.nameCategoryView.setOnClickListener(V->{
-                    Intent CategoryMovieIntent = new Intent(getContext(), MoviesResult.class);
 
+                    Intent CategoryMovieIntent = new Intent(V.getContext(), MoviesResult.class);
+
+                    System.out.println("----------genre----------" + category.getTmdb_id());
                     CategoryMovieIntent.putExtra("genre", category.getTmdb_id());
                     getContext().startActivity(CategoryMovieIntent);
                 });
